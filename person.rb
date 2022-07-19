@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # parent class Person.new(age, name, parent_permision)
 class Person
   attr_reader :id
