@@ -1,5 +1,7 @@
+require './decorate'
+
 # parent class Person.new(age, name, parent_permision)
-class Person
+class Person < Nameable
   attr_reader :id
   attr_accessor :name, :age
 
@@ -18,6 +20,10 @@ class Person
     end
   end
 
+  def correct_name
+    @name
+  end
+
   private
 
   def of_age?
@@ -25,5 +31,13 @@ class Person
   end
 end
 
-person1 = Person.new(10, 'maria', parent_permission: false)
-p person1.can_use_services?
+# person1 = Person.new(10, 'maria', parent_permission: false)
+# p person1.can_use_services?
+
+
+person = Person.new(22, 'maximilianus')
+p person.correct_name
+capitalizedPerson = CapitalizeDecorator.new(person)
+p capitalizedPerson.correct_name
+capitalizedTrimmedPerson = TrimmerDecorator.new(capitalizedPerson)
+p capitalizedTrimmedPerson.correct_name
