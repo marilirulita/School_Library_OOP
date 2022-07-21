@@ -2,7 +2,7 @@ require './decorate'
 
 # parent class Person.new(age, name, parent_permision)
 class Person < Nameable
-  attr_reader :id
+  attr_reader :id, :rentals
   attr_accessor :name, :age
 
   def initialize(age, name = 'Unknown', parent_permission: true)
@@ -11,6 +11,7 @@ class Person < Nameable
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def can_use_services?
@@ -25,6 +26,10 @@ class Person < Nameable
     @name
   end
 
+  def add_rental(date, book)
+    Rental.new(date, self, book)
+  end
+
   private
 
   def of_age?
@@ -32,12 +37,12 @@ class Person < Nameable
   end
 end
 
-person1 = Person.new(10, 'maria', parent_permission: false)
-p person1.can_use_services?
+# person1 = Person.new(10, 'maria', parent_permission: false)
+# p person1.can_use_services?
 
-person = Person.new(22, 'maximilianus')
-p person.correct_name
-capitalized_person = CapitalizeDecorator.new(person)
-p capitalized_person.correct_name
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-p capitalized_trimmed_person.correct_name
+# person = Person.new(22, 'maximilianus')
+# p person.correct_name
+# capitalized_person = CapitalizeDecorator.new(person)
+# p capitalized_person.correct_name
+# capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
+# p capitalized_trimmed_person.correct_name

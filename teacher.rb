@@ -12,5 +12,5 @@ class Teacher < Person
   end
 end
 
-teacher1 = Teacher.new(25, 'Math', 'Marco')
-p teacher1
+# teacher1 = Teacher.new(25, 'Math', 'Marco')
+# p teacher1
