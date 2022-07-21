@@ -21,7 +21,7 @@ end
 
 student1 = Student.new(25, 'monic', parent_permission: false)
 p student1
-math = Classroom.new("math")
+math = Classroom.new('math')
 p math
 math.add_student(student1)
 p math.students
