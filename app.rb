@@ -7,10 +7,10 @@ require './rental'
 @people = []
 def list_all_books
   @books.each do |v|
-  puts "Title: \"#{v.tittle}\", Author: #{v.author}"
+    puts "Title: \"#{v.tittle}\", Author: #{v.author}"
   end
 
-  main()
+  main
 end
 
 def list_all_people
@@ -18,11 +18,11 @@ def list_all_people
     puts "[#{v.class.name}] Name: #{v.name}, ID: #{v.id}, Age: #{v.age}"
   end
 
-  main()
+  main
 end
 
 def create_a_person
-  print "Do you want to create a student (1) or a teacher (2)? [input the number]: "
+  print 'Do you want to create a student (1) or a teacher (2)? [input the number]: '
   selected = gets.chomp
   selected = selected.to_i
   print 'Age: '
@@ -33,8 +33,8 @@ def create_a_person
 
   print 'Has parent permission? [Y/N]: ' if selected == 1
   permission = gets.chomp if selected == 1
-  permission = true if permission == 'y' || permission == 'Y'
-  permission = false if permission == 'n' || permission == 'N'
+  permission = true if %w[y Y].include?(permission)
+  permission = false if %w[n N].include?(permission)
 
   print 'Specialization: ' if selected == 2
   speciality = gets.chomp if selected == 2
@@ -44,7 +44,7 @@ def create_a_person
 
   puts 'Person created succesfully!'
 
-  main()
+  main
 end
 
 def create_a_book
@@ -57,7 +57,7 @@ def create_a_book
 
   puts 'Book created succesfully!'
 
-  main()
+  main
 end
 
 def create_a_rental
@@ -83,23 +83,23 @@ def create_a_rental
   Rental.new(date, @people[selected_person], @books[selected_book])
   puts 'Rental created succesfully!'
 
-  main()
+  main
 end
 
 def list_all_rental_by_id
-  print "ID of person: "
+  print 'ID of person: '
   id = gets.chomp
   id = id.to_i
 
-  puts "Rentals: "
+  puts 'Rentals: '
 
   @people.map do |v|
-    if v.id == id
-      v.rentals.each do |n|
-        puts "Date: #{n.date}, Book \"#{n.book.tittle}\" by #{n.book.author}" 
-      end
+    next unless v.id == id
+
+    v.rentals.each do |n|
+      puts "Date: #{n.date}, Book \"#{n.book.tittle}\" by #{n.book.author}"
     end
   end
 
-  main()
+  main
 end
