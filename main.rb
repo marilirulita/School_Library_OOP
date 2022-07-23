@@ -2,7 +2,7 @@ require './app'
 
 def main
 # Present the user with a list of options to perform.
-puts "Welcome to School Library App!"
+
 puts ""
 puts "Please choose an option by enterin a number:"
 options = ['List all books', 'List all people', 'Create a person', 'Create a book', 'Create a rental', 'List all rentals for a given person id', 'Exit']
@@ -17,4 +17,5 @@ create_a_book() if selected == 4
 # Have a way to quit the app.
 end
 
+puts "Welcome to School Library App!"
 main()

@@ -1,5 +1,6 @@
 require './student'
 require './teacher'
+require './book'
 
 def list_all_books
 
@@ -31,12 +32,21 @@ def create_a_person
   person = Teacher.new(age, speciality, name) if selected == 2
 
   puts 'Person created succesfully!'
-  puts ''
+
   main()
 end
 
 def create_a_book
-  puts 'You create a book'
+  print 'Title: '
+  title = gets.chomp
+  print 'Author: '
+  author = gets.chomp
+
+  book = Book.new(title, author)
+
+  puts 'Book created succesfully!'
+
+  main()
 end
 
 def create_a_rental
