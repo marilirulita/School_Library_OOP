@@ -14,6 +14,8 @@ selected = selected.to_i
 # If needed, ask for parameters for the option.
 create_a_person() if selected == 3
 create_a_book() if selected == 4
+list_all_books() if selected == 1
+list_all_people() if selected == 2
 # Have a way to quit the app.
 end
 

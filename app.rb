@@ -2,12 +2,22 @@ require './student'
 require './teacher'
 require './book'
 
+@books = []
+@people = []
 def list_all_books
+  @books.each do |v|
+  puts "Title: #{v.tittle}, Author: #{v.author}"
+  end
 
+  main()
 end
 
 def list_all_people
+  @people.each do |v|
+    puts "[#{v.class.name}] Name: #{v.name}, ID: #{v.id}, Age: #{v.age}"
+  end
 
+  main()
 end
 
 def create_a_person
@@ -28,8 +38,8 @@ def create_a_person
   print 'Specialization: ' if selected == 2
   speciality = gets.chomp if selected == 2
 
-  person = Student.new(age, name, parent_permission: permission) if selected == 1
-  person = Teacher.new(age, speciality, name) if selected == 2
+  @people.push(Student.new(age, name, parent_permission: permission)) if selected == 1
+  @people.push(Teacher.new(age, speciality, name)) if selected == 2
 
   puts 'Person created succesfully!'
 
@@ -42,7 +52,7 @@ def create_a_book
   print 'Author: '
   author = gets.chomp
 
-  book = Book.new(title, author)
+  @books.push(Book.new(title, author))
 
   puts 'Book created succesfully!'
 
