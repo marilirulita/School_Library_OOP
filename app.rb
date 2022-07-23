@@ -1,12 +1,13 @@
 require './student'
 require './teacher'
 require './book'
+require './rental'
 
 @books = []
 @people = []
 def list_all_books
   @books.each do |v|
-  puts "Title: #{v.tittle}, Author: #{v.author}"
+  puts "Title: \"#{v.tittle}\", Author: #{v.author}"
   end
 
   main()
@@ -60,9 +61,45 @@ def create_a_book
 end
 
 def create_a_rental
+  puts 'Selecte a book from the following list by number'
+  @books.each_with_index do |v, i|
+    puts "#{i}) Title: \"#{v.tittle}\", Author: #{v.author}"
+  end
 
+  selected_book = gets.chomp
+  selected_book = selected_book.to_i
+
+  puts 'Select a person from the followin list by number (not id)'
+  @people.each_with_index do |v, i|
+    puts "#{i}) [#{v.class.name}] Name: #{v.name}, ID: #{v.id}, Age: #{v.age}"
+  end
+
+  selected_person = gets.chomp
+  selected_person = selected_person.to_i
+
+  print 'Date: '
+  date = gets.chomp
+
+  Rental.new(date, @people[selected_person], @books[selected_book])
+  puts 'Rental created succesfully!'
+
+  main()
 end
 
 def list_all_rental_by_id
+  print "ID of person: "
+  id = gets.chomp
+  id = id.to_i
 
+  puts "Rentals: "
+
+  @people.map do |v|
+    if v.id == id
+      v.rentals.each do |n|
+        puts "Date: #{n.date}, Book \"#{n.book.tittle}\" by #{n.book.author}" 
+      end
+    end
+  end
+
+  main()
 end

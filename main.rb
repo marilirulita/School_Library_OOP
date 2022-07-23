@@ -16,7 +16,10 @@ create_a_person() if selected == 3
 create_a_book() if selected == 4
 list_all_books() if selected == 1
 list_all_people() if selected == 2
-# Have a way to quit the app.
+create_a_rental() if selected == 5
+list_all_rental_by_id() if selected == 6
+puts "Thank you for using this app!" if selected == 7
+
 end
 
 puts "Welcome to School Library App!"
