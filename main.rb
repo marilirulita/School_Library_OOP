@@ -13,6 +13,7 @@ selected = gets.chomp
 selected = selected.to_i
 # If needed, ask for parameters for the option.
 create_a_person() if selected == 3
+create_a_book() if selected == 4
 # Have a way to quit the app.
 end
 
