@@ -11,15 +11,15 @@ def main
 
   # Lets users choose an option.
   selected = gets.chomp
-  selected = selected.to_i
+
   # If needed, ask for parameters for the option.
-  create_a_person if selected == 3
-  create_a_book if selected == 4
-  list_all_books if selected == 1
-  list_all_people if selected == 2
-  create_a_rental if selected == 5
-  list_all_rental_by_id if selected == 6
-  puts 'Thank you for using this app!' if selected == 7
+  list_all_books if selected.to_i == 1
+  list_all_people if selected.to_i == 2
+  create_a_person if selected.to_i == 3
+  create_a_book if selected.to_i == 4
+  create_a_rental if selected.to_i == 5
+  list_all_rental_by_id if selected.to_i == 6
+  puts 'Thank you for using this app!' if selected.to_i == 7
 end
 
 puts 'Welcome to School Library App!'
