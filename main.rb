@@ -2,8 +2,15 @@
 
 require './app'
 
-def main
-  map_array(options)
+def main(option)
+  puts ''
+  puts 'Please choose an option by enterin a number:'
+
+  option.each { |v| puts "#{v[:id]} - #{v[:text]}" }
+
+  selected = gets.chomp
+
+  option.each { |v| send(v[:method]) if v[:id] == selected.to_i }
 end
 
 def options
@@ -18,16 +25,6 @@ def options
   ]
 end
 
-def map_array(option)
-  puts ''
-  puts 'Please choose an option by enterin a number:'
-
-  option.each { |v| puts "#{v[:id]} - #{v[:text]}" }
-
-  selected = gets.chomp
-
-  option.each { |v| send(v[:method]) if v[:id] == selected.to_i }
-end
-
 puts 'Welcome to School Library App!'
-main
+
+main(options)
