@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
 require './student'
@@ -104,6 +106,10 @@ def list_all_rental_by_id
   end
 
   main
+end
+
+def exit
+  puts 'Thank you for using this app!'
 end
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity

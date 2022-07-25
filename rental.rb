@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require './person'
 require './book'
 
+# Create rental class
 class Rental
   attr_accessor :date, :book, :person
 
