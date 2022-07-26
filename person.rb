@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require './decorate'
 
 # parent class Person.new(age, name, parent_permision)
