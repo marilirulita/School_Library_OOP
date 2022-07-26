@@ -1,5 +1,6 @@
 require './student'
 
+# Create a new classroom
 class Classroom
   attr_accessor :label
   attr_reader :students
