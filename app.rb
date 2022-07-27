@@ -1,11 +1,18 @@
+require 'json'
 require './student'
 require './teacher'
 require './book'
 require './rental'
+require './manage_data'
 
 @books = []
-@people = []
+@students = []
+@teachers = []
+@rentals = []
+
 def list_all_books
+  @books = recover_data(@books, 'books')
+  @books = [] if @books == nil
   @books.each do |v|
     puts "Title: \"#{v.tittle}\", Author: #{v.author}"
   end
@@ -14,7 +21,12 @@ def list_all_books
 end
 
 def list_all_people
-  @people.each do |v|
+  students = recover_data(@students, 'student')
+  teachers = recover_data(@teachers, 'teacher')
+
+  people = [*students, *teachers]
+  
+  people.each do |v|
     puts "[#{v.class.name}] Name: #{v.name}, ID: #{v.id}, Age: #{v.age}"
   end
 
@@ -42,14 +54,18 @@ def create_student(age, name)
   permission = true if %w[y Y].include?(permission)
   permission = false if %w[n N].include?(permission)
 
-  @people.push(Student.new(age.to_i, name, parent_permission: permission))
+  @students.push(Student.new(age.to_i, name, parent_permission: permission))
+
+  save_data(@students, 'student')
 end
 
 def create_teacher(age, name)
   print 'Specialization: '
   speciality = gets.chomp
 
-  @people.push(Teacher.new(age.to_i, speciality, name))
+  @teachers.push(Teacher.new(age.to_i, speciality, name))
+
+  save_data(@teachers, 'teacher')
 end
 
 def create_a_book
@@ -59,6 +75,7 @@ def create_a_book
   author = gets.chomp
 
   @books.push(Book.new(title, author))
+  save_data(@books, 'books')
 
   puts 'Book created succesfully!'
 
@@ -114,4 +131,28 @@ end
 
 def exit
   puts 'Thank you for using this app!'
+  
+  #save_data(@rentals, 'rentals')
+end
+
+def save_data(data, file)
+  json = JSON.generate(data)
+
+  # create file
+  #first ask if the file exists?
+  if File.exists?("#{file}.json") == false
+    File.write("#{file}.json", json)
+  elsif File.exists?("#{file}.json") == true
+    json = File.read("#{file}.json")
+    ruby = JSON.parse(json, create_additions: true)
+    new_data = JSON.generate([*ruby, *data])
+    File.write("#{file}.json", new_data)
+  end
+end
+
+def recover_data(data, file)
+  if File.exists?("#{file}.json") == true
+    json = File.read("#{file}.json")
+    data = JSON.parse(json, create_additions: true)
+  end
 end
