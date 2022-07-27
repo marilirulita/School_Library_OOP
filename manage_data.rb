@@ -23,8 +23,8 @@ class Person
   def to_json(*args)
     {
     JSON.create_id => self.class.name,
-    'name' => name,
     'age' => age,
+    'name' => name,
     'parent_permission' => @parent_permission,
     }.to_json(*args)
   end
@@ -39,14 +39,14 @@ class Student < Person
   def to_json(*args)
     {
     JSON.create_id  => self.class.name,
-    'name' => name,
     'age' => age,
+    'name' => name,
     'parent_permission' => @parent_permission,
     }.to_json(*args)
   end
   # Deserialize JSON string by constructing new Foo object with arguments.
   def self.json_create(h)
-    new(h['name'], h['age'], parent_permission: h['parent_permission'])
+    new(h['age'], h['name'], parent_permission: h['parent_permission'])
   end
 end
 
