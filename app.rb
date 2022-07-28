@@ -5,14 +5,14 @@ require './book'
 require './rental'
 require './manage_data'
 
-@books = []
-@students = []
-@teachers = []
-@rentals = []
+def get_data
+  @books = [] if @books == nil
+  @rentals = [] if @rentals == nil
+  @people = [] if @people == nil
+end
 
 def list_all_books
-  @books = recover_data(@books, 'books')
-  @books = [] if @books == nil
+  get_data
   @books.each do |v|
     puts "Title: \"#{v.tittle}\", Author: #{v.author}"
   end
@@ -21,12 +21,7 @@ def list_all_books
 end
 
 def list_all_people
-  students = recover_data(@students, 'student')
-  teachers = recover_data(@teachers, 'teacher')
-
-  people = [*students, *teachers]
-  
-  people.each do |v|
+  @people.each do |v|
     puts "[#{v.class.name}] Name: #{v.name}, ID: #{v.id}, Age: #{v.age}"
   end
 
@@ -54,18 +49,18 @@ def create_student(age, name)
   permission = true if %w[y Y].include?(permission)
   permission = false if %w[n N].include?(permission)
 
-  @students.push(Student.new(age.to_i, name, parent_permission: permission))
+  @people.push(Student.new(age.to_i, name, parent_permission: permission))
 
-  save_data(@students, 'student')
+  save_data(@people, 'people')
 end
 
 def create_teacher(age, name)
   print 'Specialization: '
   speciality = gets.chomp
 
-  @teachers.push(Teacher.new(age.to_i, speciality, name))
+  @people.push(Teacher.new(age.to_i, speciality, name))
 
-  save_data(@teachers, 'teacher')
+  save_data(@people, 'people')
 end
 
 def create_a_book
@@ -84,21 +79,30 @@ end
 
 def create_a_rental
   select_book
-  selected_book = gets.chomp
+  selected_book = gets.chomp 
 
   select_person
-  selected_person = gets.chomp
+  selected_person = gets.chomp 
 
   print 'Date: '
   date = gets.chomp
 
-  Rental.new(date, @people[selected_person.to_i], @books[selected_book.to_i])
+  rental = Rental.new(date, @people[selected_person.to_i], @books[selected_book.to_i])
+  @rentals.push(rental)
+
   puts 'Rental created succesfully!'
 
+  save_data(@rentals, 'rentals')
   main
 end
 
+def not_element
+  puts 'There is any element to select'
+  main
+end  
+
 def select_book
+  not_element if @books.empty? == true
   puts 'Selecte a book from the following list by number'
   @books.each_with_index do |v, i|
     puts "#{i}) Title: \"#{v.tittle}\", Author: #{v.author}"
@@ -106,6 +110,7 @@ def select_book
 end
 
 def select_person
+  not_element if @people.empty? == true
   puts 'Select a person from the followin list by number (not id)'
   @people.each_with_index do |v, i|
     puts "#{i}) [#{v.class.name}] Name: #{v.name}, ID: #{v.id}, Age: #{v.age}"
@@ -131,23 +136,12 @@ end
 
 def exit
   puts 'Thank you for using this app!'
-  
-  #save_data(@rentals, 'rentals')
+  exit!
 end
 
 def save_data(data, file)
   json = JSON.generate(data)
-
-  # create file
-  #first ask if the file exists?
-  if File.exists?("#{file}.json") == false
-    File.write("#{file}.json", json)
-  elsif File.exists?("#{file}.json") == true
-    json = File.read("#{file}.json")
-    ruby = JSON.parse(json, create_additions: true)
-    new_data = JSON.generate([*ruby, *data])
-    File.write("#{file}.json", new_data)
-  end
+  File.write("#{file}.json", json)
 end
 
 def recover_data(data, file)
@@ -156,3 +150,7 @@ def recover_data(data, file)
     data = JSON.parse(json, create_additions: true)
   end
 end
+
+@books = recover_data(@books, 'books')
+@people = recover_data(@people, 'people')
+@rentals = recover_data(@rentals, 'rentals')

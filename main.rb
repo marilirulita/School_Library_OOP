@@ -1,6 +1,8 @@
 require './app'
 
 def main
+  get_data
+  
   options = [
     { id: 1, text: 'List all books', method: 'list_all_books' },
     { id: 2, text: 'List all people', method: 'list_all_people' },
