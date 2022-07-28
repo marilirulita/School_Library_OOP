@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require './student'
 
 # Create a new classroom

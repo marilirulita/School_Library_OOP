@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'json'
 
 # Helper to store book data in json file
