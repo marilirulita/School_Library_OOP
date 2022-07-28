@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require './student'
 require './teacher'
@@ -5,14 +7,13 @@ require './book'
 require './rental'
 require './manage_data'
 
-def get_data
-  @books = [] if @books == nil
-  @rentals = [] if @rentals == nil
-  @people = [] if @people == nil
+def restart_data
+  @books = [] if @books.nil?
+  @rentals = [] if @rentals.nil?
+  @people = [] if @people.nil?
 end
 
 def list_all_books
-  get_data
   @books.each do |v|
     puts "Title: \"#{v.tittle}\", Author: #{v.author}"
   end
@@ -79,27 +80,32 @@ end
 
 def create_a_rental
   select_book
-  selected_book = gets.chomp 
+  selected_book = gets.chomp
 
   select_person
-  selected_person = gets.chomp 
+  selected_person = gets.chomp
 
   print 'Date: '
   date = gets.chomp
 
+  add_rental(date, selected_person, selected_book)
+
+  main
+end
+
+def add_rental(date, selected_person, selected_book)
   rental = Rental.new(date, @people[selected_person.to_i], @books[selected_book.to_i])
   @rentals.push(rental)
 
   puts 'Rental created succesfully!'
 
   save_data(@rentals, 'rentals')
-  main
 end
 
 def not_element
   puts 'There is any element to select'
   main
-end  
+end
 
 def select_book
   not_element if @books.empty? == true
@@ -144,13 +150,13 @@ def save_data(data, file)
   File.write("#{file}.json", json)
 end
 
-def recover_data(data, file)
-  if File.exists?("#{file}.json") == true
-    json = File.read("#{file}.json")
-    data = JSON.parse(json, create_additions: true)
-  end
+def recover_data(file)
+  return unless File.exist?("#{file}.json") == true
+
+  json = File.read("#{file}.json")
+  JSON.parse(json, create_additions: true)
 end
 
-@books = recover_data(@books, 'books')
-@people = recover_data(@people, 'people')
-@rentals = recover_data(@rentals, 'rentals')
+@books = recover_data('books')
+@people = recover_data('people')
+@rentals = recover_data('rentals')

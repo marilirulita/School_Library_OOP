@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './decorate'
 
 # parent class Person.new(age, name, parent_permision)
@@ -5,7 +7,7 @@ class Person < Nameable
   attr_reader :id, :rentals
   attr_accessor :name, :age
 
-  def initialize(age, name = 'Unknown',  id = Random.rand(1..1000), parent_permission: true)
+  def initialize(age, name = 'Unknown', id = Random.rand(1..1000), parent_permission: true)
     super()
     @id = id
     @name = name
