@@ -1,7 +1,13 @@
 require './app'
 
 def main
-  options = [
+  restart_data
+
+  option_cycle(options)
+end
+
+def options
+  [
     { id: 1, text: 'List all books', method: 'list_all_books' },
     { id: 2, text: 'List all people', method: 'list_all_people' },
     { id: 3, text: 'Create a person', method: 'create_a_person' },
@@ -10,7 +16,6 @@ def main
     { id: 6, text: 'List all rentals for a given person id', method: 'list_all_rental_by_id' },
     { id: 7, text: 'Exit', method: 'exit' }
   ]
-  option_cycle(options)
 end
 
 def option_cycle(option)

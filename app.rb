@@ -1,10 +1,16 @@
+require 'json'
 require './student'
 require './teacher'
 require './book'
 require './rental'
+require './manage_data'
 
-@books = []
-@people = []
+def restart_data
+  @books = [] if @books.nil?
+  @rentals = [] if @rentals.nil?
+  @people = [] if @people.nil?
+end
+
 def list_all_books
   @books.each do |v|
     puts "Title: \"#{v.tittle}\", Author: #{v.author}"
@@ -43,6 +49,8 @@ def create_student(age, name)
   permission = false if %w[n N].include?(permission)
 
   @people.push(Student.new(age.to_i, name, parent_permission: permission))
+
+  save_data(@people, 'people')
 end
 
 def create_teacher(age, name)
@@ -50,6 +58,8 @@ def create_teacher(age, name)
   speciality = gets.chomp
 
   @people.push(Teacher.new(age.to_i, speciality, name))
+
+  save_data(@people, 'people')
 end
 
 def create_a_book
@@ -59,6 +69,7 @@ def create_a_book
   author = gets.chomp
 
   @books.push(Book.new(title, author))
+  save_data(@books, 'books')
 
   puts 'Book created succesfully!'
 
@@ -75,13 +86,27 @@ def create_a_rental
   print 'Date: '
   date = gets.chomp
 
-  Rental.new(date, @people[selected_person.to_i], @books[selected_book.to_i])
-  puts 'Rental created succesfully!'
+  add_rental(date, selected_person, selected_book)
 
   main
 end
 
+def add_rental(date, selected_person, selected_book)
+  rental = Rental.new(date, @people[selected_person.to_i], @books[selected_book.to_i])
+  @rentals.push(rental)
+
+  puts 'Rental created succesfully!'
+
+  save_data(@rentals, 'rentals')
+end
+
+def not_element
+  puts 'There is any element to select'
+  main
+end
+
 def select_book
+  not_element if @books.empty? == true
   puts 'Selecte a book from the following list by number'
   @books.each_with_index do |v, i|
     puts "#{i}) Title: \"#{v.tittle}\", Author: #{v.author}"
@@ -89,6 +114,7 @@ def select_book
 end
 
 def select_person
+  not_element if @people.empty? == true
   puts 'Select a person from the followin list by number (not id)'
   @people.each_with_index do |v, i|
     puts "#{i}) [#{v.class.name}] Name: #{v.name}, ID: #{v.id}, Age: #{v.age}"
@@ -114,4 +140,21 @@ end
 
 def exit
   puts 'Thank you for using this app!'
+  exit!
 end
+
+def save_data(data, file)
+  json = JSON.generate(data)
+  File.write("#{file}.json", json)
+end
+
+def recover_data(file)
+  return unless File.exist?("#{file}.json") == true
+
+  json = File.read("#{file}.json")
+  JSON.parse(json, create_additions: true)
+end
+
+@books = recover_data('books')
+@people = recover_data('people')
+@rentals = recover_data('rentals')
