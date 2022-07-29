@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe Person do
   before(:all) do 
     @book = Book.new "Year Book", "Year Author"
