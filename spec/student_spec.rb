@@ -16,11 +16,11 @@ describe Student do
     expect(@student.name).to eq("Jhon")
   end
 
-  it "returns name value from Student object that heritages from Person" do
+  it "returns age value from Student object that heritages from Person" do
     expect(@student.age).to eq(20)
   end
 
-  it "returns updated value for use service from Student object that heritages from Person" do
+  it "returns value for use service from Student object that heritages from Person" do
     expect(@student.can_use_services?).to be true
   end
 
