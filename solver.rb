@@ -12,6 +12,6 @@ class Solver
     return "Not a valid number"
   end
 
-  def reverse
+  def reverse(word)
   end
 end
