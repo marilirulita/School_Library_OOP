@@ -38,4 +38,13 @@ describe Solver do
 
     end
   end
+
+  describe "#fizzbuzz method" do
+    context 'takes one argument, and returns a string' do
+      it 'expects 3 to be divisible by 3 and return "fizz"' do
+        expect(@object.fizzbuzz(3)).to eq("fizz")
+      end
+
+    end
+  end
 end
