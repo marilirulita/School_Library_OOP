@@ -28,6 +28,14 @@ describe Solver do
         expect(@object.reverse("Hello")).to eq("olleH")
       end
 
+      it 'expects reverse of "Goo Moorning" to be "gninrooM ooG"' do
+        expect(@object.reverse("Goo Moorning")).to eq("gninrooM ooG")
+      end
+
+      it 'expects reverse of "See you" to be "uoy eeS"' do
+        expect(@object.reverse("See you")).to eq("uoy eeS")
+      end
+
     end
   end
 end
