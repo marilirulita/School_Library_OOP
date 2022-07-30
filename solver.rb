@@ -1,25 +1,30 @@
+# frozen_string_literal: true
+
+# creates an object that can be solved in three different method
 class Solver
-  def factorial(n)
-    if n >= 0
-      return 1 if n == 0
-      answer = n
-      until n == 1
-        n = n -1
-        answer = answer * n
+  def factorial(num)
+    if num >= 0
+      return 1 if num.zero?
+
+      answer = num
+      until num == 1
+        num -= 1
+        answer *= num
       end
       return answer
     end
-    return "Not a valid number"
+    'Not a valid number'
   end
 
   def reverse(word)
     word.reverse
   end
 
-  def fizzbuzz(n)
-    return 'fizzbuzz' if n % 3 == 0 && n % 5 == 0
-    return 'fizz' if n % 3 == 0
-    return 'buzz' if n % 5 == 0
-    return n.to_s
+  def fizzbuzz(num)
+    return 'fizzbuzz' if (num % 3).zero? && (num % 5).zero?
+    return 'fizz' if (num % 3).zero?
+    return 'buzz' if (num % 5).zero?
+
+    num.to_s
   end
 end
