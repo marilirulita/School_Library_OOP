@@ -52,6 +52,10 @@ describe Solver do
       it 'expects 15 to be divisible by 3 and 5 and return "fizzbuzz"' do
         expect(@object.fizzbuzz(15)).to eq("fizzbuzz")
       end
+
+      it 'expects 7 to not be divisible by 3 or 5 and return "7"' do
+        expect(@object.fizzbuzz(7)).to eq("7")
+      end
     end
   end
 end
