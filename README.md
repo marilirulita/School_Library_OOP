@@ -21,20 +21,10 @@ To get a local copy up and running follow these simple example steps.
 
 - Open the folder project from your code editor.
 
-- Run to see new object data in console:
+- Run to see project in console:
 
   ```
-  ruby person.rb
-  ```
-  or
-
-  ```
-  ruby student.rb
-  ```
-  or
-
-  ```
-  ruby teacher.rb
+  ruby main.rb
   ```
 
 
