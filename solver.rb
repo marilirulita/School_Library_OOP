@@ -11,4 +11,7 @@ class Solver
     end
     return "Not a valid number"
   end
+
+  def reverse
+  end
 end
