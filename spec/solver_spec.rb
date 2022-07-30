@@ -45,6 +45,10 @@ describe Solver do
         expect(@object.fizzbuzz(3)).to eq("fizz")
       end
 
+      it 'expects 5 to be divisible by 5 and return "buzz"' do
+        expect(@object.fizzbuzz(5)).to eq("buzz")
+      end
+
     end
   end
 end
